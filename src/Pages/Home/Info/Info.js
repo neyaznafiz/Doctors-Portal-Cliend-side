@@ -14,18 +14,18 @@ const Info = () => {
                 img={clock}
                 cardTitle='Opening Hours'
                 cardText='Lorem Ipsum is simply dummy text of the pri'
-                bgClass='bg-gradient-to-r from-secondary to-primary' >
+                bgclassName='bg-gradient-to-r from-secondary to-primary' >
             </InfoCard>
 
             <InfoCard
                 img={marker}
-                cardTitle='Visit our location' cardText='Brooklyn, NY 10036, United States' bgClass='bg-accent' >
+                cardTitle='Visit our location' cardText='Brooklyn, NY 10036, United States' bgclassName='bg-accent' >
             </InfoCard>
 
             <InfoCard
                 img={phone}
                 cardTitle='Contact us now' cardText='+000 123 456789'
-                bgClass='bg-gradient-to-r from-secondary to-primary' ></InfoCard>
+                bgclassName='bg-gradient-to-r from-secondary to-primary' ></InfoCard>
         </div>
     );
 };

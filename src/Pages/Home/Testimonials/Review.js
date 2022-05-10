@@ -5,13 +5,13 @@ const Review = ({ review }) => {
     const { name, img, location, reviews } = review
 
     return (
-        <div class="card lg:max-w-lg bg-base-100 shadow-xl">
-            <div class="card-body">
+        <div className="card lg:max-w-lg bg-base-100 shadow-xl">
+            <div className="card-body">
                 <p>{reviews}</p>
 
                 <div className='flex items-center gap-2'>
-                    <div class="avatar">
-                        <div class="w-20 mask mask-hexagon">
+                    <div className="avatar">
+                        <div className="w-20 mask mask-hexagon">
                             <img src={img} />
                         </div>
                     </div>
