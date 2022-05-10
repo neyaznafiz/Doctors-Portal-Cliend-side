@@ -5,7 +5,7 @@ import Services from './Services/Services';
 import Treatment from './Treatment/Treatment';
 import Testimonials from './Testimonials/Testimonials';
 import MakeAppointment from './MakeAppointment/MakeAppointment';
-import Footer from './Footer';
+import Footer from '../Shared/Footer';
 import Contact from './Contact';
 
 

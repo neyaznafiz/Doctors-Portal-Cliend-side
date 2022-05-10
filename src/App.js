@@ -11,7 +11,7 @@ import Navbar from './Pages/Shared/Navbar';
 
 function App() {
   return (
-    <div>
+    <div className=''>
       <Navbar></Navbar>
 
       <Routes>
