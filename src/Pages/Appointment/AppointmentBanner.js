@@ -1,12 +1,12 @@
 import { format } from 'date-fns';
-import React, { useState } from 'react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import chair from '../../assets/images/chair.png'
+import bg from '../../assets/images/bg.png'
 
-const AppointmentBanner = () => {
+const AppointmentBanner = ({date, setDate}) => {
 
-    const [date, setDate] = useState(new Date())
+    
 
     // let footer = <p>Please select a day.</p>;
     // if (date) {
@@ -14,9 +14,14 @@ const AppointmentBanner = () => {
     // }
 
     return (
-        <div className="hero min-h-screen">
-            <div className="hero-content flex-col lg:flex-row-reverse">
-                <img src={chair} alt='Dentist Chair' className="max-w-sm rounded-lg shadow-2xl" />
+        <div
+            style={{
+                background: `url(${bg})`,
+                backgroundSize: 'cover'
+            }}
+            className="hero min-h-screen ">
+            <div className="hero-content flex-col lg:flex-row-reverse w-full justify-evenly">
+                <img src={chair} alt='Dentist Chair' className="max-w-md rounded-lg shadow-2xl" />
                 <div className=''>
                     <DayPicker
                         mode="single"
