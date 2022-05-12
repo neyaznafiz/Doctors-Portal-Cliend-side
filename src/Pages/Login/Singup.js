@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Loading from '../Shared/Loading';
 import auth from '../../FIrebase/firebase.init'
-import { useCreateUserWithEmailAndPassword,  useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
 
 const Singup = () => {
@@ -18,25 +18,31 @@ const Singup = () => {
         user,
         loading,
         error,
-      ] = useCreateUserWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth)
+
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth)
+
+    const navigate = useNavigate()
 
     let signInError
 
-    if (loading || GoogleLoading) {
+    if (loading || updating || GoogleLoading) {
         return <Loading></Loading>
     }
 
-    if(error || googleError){
-       signInError = <p className='text-white text-center border bg-red-500 rounded-lg mb-1'><small>{error?.message || googleError?.message}</small></p>
+    if (error || updateError || googleError) {
+        signInError = <p className='text-white text-center border bg-red-500 rounded-lg mb-1'><small>{error?.message || updateError.message || googleError?.message}</small></p>
     }
 
     if (user || googleUser) {
         console.log(user)
     }
 
-    const onSubmit = data => {
-        console.log(data)
-        createUserWithEmailAndPassword(data.email, data.password)
+    const onSubmit = async data => {
+        await createUserWithEmailAndPassword(data.email, data.password)
+        await updateProfile({ displayName: data.name })
+        console.log('update done')
+        navigate('/appointment')
     }
 
 
@@ -48,7 +54,7 @@ const Singup = () => {
 
                     <form onSubmit={handleSubmit(onSubmit)}>
 
-                    <div className="form-control w-full max-w-xs">
+                        <div className="form-control w-full max-w-xs">
                             <label className="label">
                                 <span className="label-text">Name</span>
                             </label>
