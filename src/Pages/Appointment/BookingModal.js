@@ -10,6 +10,8 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
 
         const slot = event.target.slot.value
         console.log(_id, name, slot);
+
+        // to close the modal
         setTreatment(null)
     }
 
@@ -26,9 +28,9 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
                     <h3 className="font-bold text-lg my-4 uppercase">Booking For: <span className='text-secondary'>{name}</span> </h3>
 
                     <form onSubmit={handleBooking} className='grid grid-cols-1 gap-3 justify-items-center my-4' >
-                        <input type="text" disabled value={format(date, 'PP')} class="input input-bordered w-full max-w-xs" />
+                        <input type="text" disabled value={format(date, 'PP')} className="input input-bordered w-full max-w-xs" />
 
-                        <select name='slot' class="select select-bordered w-full max-w-xs">
+                        <select name='slot' className="select select-bordered w-full max-w-xs">
                             {
                                 slots.map(slot => <option value={slot} > {slot} </option>)
                             }
@@ -36,13 +38,13 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
                             <option>Greedo</option>
                         </select>
 
-                        <input type="text" name='name' placeholder="Your name" class="input input-bordered w-full max-w-xs" />
+                        <input type="text" name='name' placeholder="Your name" className="input input-bordered w-full max-w-xs" />
 
-                        <input type="email" name='email' placeholder="Email Address" class="input input-bordered w-full max-w-xs" />
+                        <input type="email" name='email' placeholder="Email Address" className="input input-bordered w-full max-w-xs" />
 
-                        <input type="text" name='phone' placeholder="Phone Number" class="input input-bordered w-full max-w-xs" />
+                        <input type="text" name='phone' placeholder="Phone Number" className="input input-bordered w-full max-w-xs" />
 
-                        <input type="submit" value="SUBMIT" class="btn btn-accent w-full max-w-xs" />
+                        <input type="submit" value="SUBMIT" className="btn btn-accent w-full max-w-xs" />
                     </form>
 
                 </div>
