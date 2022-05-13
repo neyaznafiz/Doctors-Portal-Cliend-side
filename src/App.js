@@ -10,6 +10,8 @@ import RequireAuth from './Pages/Login/RequireAuth';
 import Singup from './Pages/Login/Singup';
 import Reviews from './Pages/Reviews/Reviews';
 import Navbar from './Pages/Shared/Navbar';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -32,6 +34,7 @@ function App() {
 <Route path='/contactus' element={<ContactUs></ContactUs>} />
 
       </Routes>
+      <ToastContainer />
     </div>
   );
 }
