@@ -1,9 +1,13 @@
 import { format } from 'date-fns';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../FIrebase/firebase.init';
 
 const BookingModal = ({ date, treatment, setTreatment }) => {
 
-    const {_id, name, slots } = treatment
+    const { _id, name, slots } = treatment
+
+    const [user, loading] = useAuthState(auth)
 
     const handleBooking = event => {
         event.preventDefault()
@@ -23,26 +27,27 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
 
                 <div className="modal-box">
 
-                    <label for="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                    <label htmlFor="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
 
                     <h3 className="font-bold text-lg my-4 uppercase">Booking For: <span className='text-secondary'>{name}</span> </h3>
 
                     <form onSubmit={handleBooking} className='grid grid-cols-1 gap-3 justify-items-center my-4' >
-                        <input type="text" disabled value={format(date, 'PP')} className="input input-bordered w-full max-w-xs" />
+                        <input type="text" disabled value={format(date, 'PP')} className="input input-bordered w-full max-w-xs font-semibold opacity-80" />
 
                         <select name='slot' className="select select-bordered w-full max-w-xs">
                             {
-                                slots.map(slot => <option value={slot} > {slot} </option>)
+                                slots.map((slot, index) => <option
+                                    key={index}
+                                    value={slot} > {slot} </option>)
                             }
-                            <option>Han Solo</option>
-                            <option>Greedo</option>
                         </select>
 
-                        <input type="text" name='name' placeholder="Your name" className="input input-bordered w-full max-w-xs" />
+                        <input type="text" name='name'
+                            disabled value={user?.displayName || ''} className="input input-bordered w-full max-w-xs font-semibold" />
 
-                        <input type="email" name='email' placeholder="Email Address" className="input input-bordered w-full max-w-xs" />
+                        <input type="email" name='email' disabled value={user.email || ''} className="input input-bordered w-full max-w-xs font-semibold" />
 
-                        <input type="text" name='phone' placeholder="Phone Number" className="input input-bordered w-full max-w-xs" />
+                        <input type="text" name='phone' placeholder="Phone Number" className="input input-bordered w-full max-w-xs font-semibold" />
 
                         <input type="submit" value="SUBMIT" className="btn btn-accent w-full max-w-xs" />
                     </form>
