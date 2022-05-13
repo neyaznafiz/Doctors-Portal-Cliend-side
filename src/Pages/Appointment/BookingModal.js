@@ -9,17 +9,20 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
 
     const [user, loading] = useAuthState(auth)
 
-const formatedDate = format(date, 'PPPP')
+    const formatedDate = format(date, 'PPPP')
     const handleBooking = event => {
         event.preventDefault()
 
         const slot = event.target.slot.value
-        console.log(_id, name, slot);
 
-        const bokking = {
+        const booking = {
             treatmentId: _id,
             treatment: name,
-
+            date: formatedDate,
+            slot,
+            patient: user.email,
+            patientName: user.displayName,
+            phone: event.target.phone.value
         }
 
         // to close the modal
