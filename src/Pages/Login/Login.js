@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import auth from '../../FIrebase/firebase.init'
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading';
-import {Link, useLocation, useNavigate} from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 const Login = () => {
 
@@ -18,24 +18,27 @@ const Login = () => {
         loading,
         error,
     ] = useSignInWithEmailAndPassword(auth)
-    
+
+    // const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth)
+
+
     let signInError
     let navigate = useNavigate()
     let location = useLocation()
     let from = location.state?.from?.pathname || "/";
 
-    useEffect(()=>{
+    useEffect(() => {
         if (user || googleUser) {
             navigate(from, { replace: true });
         }
-    },[user, googleUser, from, navigate])
+    }, [user, googleUser, from, navigate])
 
-    if (loading || GoogleLoading) {
+    if (loading || GoogleLoading ) {
         return <Loading></Loading>
     }
 
-    if(error || googleError){
-       signInError = <p className='text-white text-center border bg-red-500 rounded-lg mb-1'><small>{error?.message || googleError?.message}</small></p>
+    if (error || googleError) {
+        signInError = <p className='text-white text-center border bg-red-500 rounded-lg mb-1'><small>{error?.message || googleError?.message}</small></p>
     }
 
     const onSubmit = data => {
@@ -94,8 +97,9 @@ const Login = () => {
                             <label className="label">
                                 {errors.password?.type === 'required' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
                                 {errors.password?.type === 'minLength' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
+                                
+                                {/* <button onClick={()=>sendPasswordResetEmail(user.email)} className='text-xs font-semibold '>Forgot Password ?</button > */}
                             </label>
-
                         </div>
 
                         {signInError}

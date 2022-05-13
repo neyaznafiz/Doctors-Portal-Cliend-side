@@ -9,11 +9,18 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
 
     const [user, loading] = useAuthState(auth)
 
+const formatedDate = format(date, 'PPPP')
     const handleBooking = event => {
         event.preventDefault()
 
         const slot = event.target.slot.value
         console.log(_id, name, slot);
+
+        const bokking = {
+            treatmentId: _id,
+            treatment: name,
+
+        }
 
         // to close the modal
         setTreatment(null)
@@ -32,7 +39,7 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
                     <h3 className="font-bold text-lg my-4 uppercase">Booking For: <span className='text-secondary'>{name}</span> </h3>
 
                     <form onSubmit={handleBooking} className='grid grid-cols-1 gap-3 justify-items-center my-4' >
-                        <input type="text" disabled value={format(date, 'PP')} className="input input-bordered w-full max-w-xs font-semibold opacity-80" />
+                        <input type="text" disabled value={format(date, 'PPPP')} className="input input-bordered w-full max-w-xs font-semibold opacity-80" />
 
                         <select name='slot' className="select select-bordered w-full max-w-xs">
                             {
