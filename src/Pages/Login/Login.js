@@ -4,6 +4,7 @@ import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWith
 import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading';
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import useToken from '../../Hooks/useToken';
 
 const Login = () => {
 
@@ -21,6 +22,8 @@ const Login = () => {
 
     // const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth)
 
+    const [token] = useToken(user || googleUser)
+
 
     let signInError
     let navigate = useNavigate()
@@ -28,10 +31,11 @@ const Login = () => {
     let from = location.state?.from?.pathname || "/";
 
     useEffect(() => {
-        if (user || googleUser) {
+        if (token) {
             navigate(from, { replace: true });
         }
-    }, [user, googleUser, from, navigate])
+    }, [token, from, navigate])
+
 
     if (loading || GoogleLoading ) {
         return <Loading></Loading>

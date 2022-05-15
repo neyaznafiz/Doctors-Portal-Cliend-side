@@ -23,7 +23,7 @@ const Singup = () => {
 
     const [token] = useToken(user || googleUser)
 
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
 
     let signInError
 
@@ -35,16 +35,14 @@ const Singup = () => {
         signInError = <p className='text-white text-center border bg-red-500 rounded-lg mb-1'><small>{error?.message || updateError.message || googleError?.message}</small></p>
     }
 
-    if (user || googleUser) {
-        console.log(user)
-        // navigate('/appointment')
+    if (token) {
+        navigate('/appointment')
     }
 
     const onSubmit = async data => {
         await createUserWithEmailAndPassword(data.email, data.password)
         await updateProfile({ displayName: data.name })
         console.log('update done')
-        // navigate('/appointment')
     }
 
 
