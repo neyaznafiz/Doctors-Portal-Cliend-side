@@ -1,14 +1,15 @@
 import React from 'react';
 
-const AllUserRow = ({user}) => {
+const AllUserRow = ({user, index}) => {
 
     const {email}= user
     return (
         <tr>
-            <th>1</th>
+            <th>{index + 1}</th>
             <td>{email}</td>
-            <td>Quality Control Specialist</td>
-            <td>Blue</td>
+            <td><button className="btn btn-xs">Make Admin</button></td>
+            <td><button className="btn btn-xs">Remove User</button></td>
+            
         </tr>
     );
 };

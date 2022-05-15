@@ -5,7 +5,12 @@ import AllUserRow from './AllUsersRow';
 
 const AllUsers = () => {
 
-    const { data: users, isLoading } = useQuery('users', () => fetch('http://localhost:5000/allusers').then(res => res.json()))
+    const { data: users, isLoading } = useQuery('users', () => fetch('http://localhost:5000/allusers', {
+        method: 'GET',
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+        }
+    }).then(res => res.json()))
 
     if (isLoading) {
         return <Loading></Loading>
@@ -20,19 +25,20 @@ const AllUsers = () => {
                     {/* <!-- head --> */}
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
+                            <th>SL</th>
+                            <th>User Email</th>
+                            <th>Admin Button</th>
+                            <th>Remove button</th>
                         </tr>
                     </thead>
                     <tbody>
-{
-    users.map(user=> <AllUserRow
-    key={user._id}
-    user={user}
-    ></AllUserRow>)
-}
+                        {
+                            users.map((user, index) => <AllUserRow
+                                key={user._id}
+                                user={user}
+                                index={index}
+                            ></AllUserRow>)
+                        }
                     </tbody>
                 </table>
             </div>
