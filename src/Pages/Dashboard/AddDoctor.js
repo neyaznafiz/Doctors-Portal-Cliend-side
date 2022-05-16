@@ -9,9 +9,40 @@ const AddDoctor = () => {
 
     const { data: services, isLoading } = useQuery('services', () => fetch('http://localhost:5000/service').then(res => res.json()))
 
+    const imgStorageKey = 'da7a354ac5b93a961b8fece49f261619'
+    /**
+     * 3 ways to store images
+     * 1. third party storage // free open public storage is ok for practice project
+     * 2. your own storage in your own server (file system)
+     * 3. Database: Mongodb 
+     * 
+     * YUP: to validet file: search: YUP file validation for react hook form.
+    */
+
     const onSubmit = async data => {
 
-        console.log('data', data)
+        const image = data.image[0]
+        const formData = new FormData();
+        formData.append('image', image);
+        const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(result => {
+                if(result.success){
+                    const img = result.data.url
+                    const doctor = {
+                        name: data.name,
+                        email: data.email,
+                        speciality: data.speciality,
+                        img: img
+                    }
+                    // send to your database
+                    
+                }
+            })
     }
 
     if (isLoading) {
@@ -23,7 +54,7 @@ const AddDoctor = () => {
             <h2 className="text-2xl font-semibold">Add a New Doctor</h2>
 
             <form onSubmit={handleSubmit(onSubmit)}>
-
+                {/* name field */}
                 <div className="form-control w-full max-w-xs">
                     <label className="label">
                         <span className="label-text">Name</span>
@@ -40,9 +71,9 @@ const AddDoctor = () => {
                     <label className="label">
                         {errors.name?.type === 'required' && <span className="label-text-alt text-red-500">{errors.name.message}</span>}
                     </label>
-
                 </div>
 
+                {/* email field */}
                 <div className="form-control w-full max-w-xs">
                     <label className="label">
                         <span className="label-text">Email</span>
@@ -64,22 +95,39 @@ const AddDoctor = () => {
                         {errors.email?.type === 'required' && <span className="label-text-alt text-red-500">{errors.email.message}</span>}
                         {errors.email?.type === 'pattern' && <span className="label-text-alt text-red-500">{errors.email.message}</span>}
                     </label>
-
                 </div>
 
+                {/* service field */}
                 <div className="form-control w-full max-w-xs">
                     <label className="label">
                         <span className="label-text">Speciality</span>
                     </label>
-                    <select {...register('speciality')} class="select w-full max-w-xs">
+                    <select {...register('speciality')} class="select w-full input-bordered max-w-xs">
                         {
                             services.map(service => <option
-                            key={service._id}
-                            value={service.name}
+                                key={service._id}
+                                value={service.name}
                             >{service.name}</option>)
                         }
                     </select>
-                    
+                </div>
+
+                {/* image field */}
+                <div className="form-control w-full max-w-xs">
+                    <label className="label">
+                        <span className="label-text">Photo</span>
+                    </label>
+                    <input type="file"
+                        className="input input-bordered w-full max-w-xs"
+                        {...register("image", {
+                            required: {
+                                value: true,
+                                message: 'Image is Required'
+                            }
+                        })} />
+                    <label className="label">
+                        {errors.name?.type === 'required' && <span className="label-text-alt text-red-500">{errors.name.message}</span>}
+                    </label>
                 </div>
 
                 <input className='btn w-full max-w-xs text-white' type="submit" value='Add' />
