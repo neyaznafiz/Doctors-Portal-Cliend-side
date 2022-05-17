@@ -8,7 +8,7 @@ const AddDoctor = () => {
 
     const { register, formState: { errors }, handleSubmit, reset } = useForm()
 
-    const { data: services, isLoading } = useQuery('services', () => fetch('http://localhost:5000/service').then(res => res.json()))
+    const { data: services, isLoading } = useQuery('services', () => fetch('http://whispering-refuge-29775.herokuapp.com/service').then(res => res.json()))
 
     const imgStorageKey = 'da7a354ac5b93a961b8fece49f261619'
     /**
@@ -41,7 +41,7 @@ const AddDoctor = () => {
                         img: img
                     }
                     // send to your database
-                    fetch('http://localhost:5000/doctor', {
+                    fetch('http://whispering-refuge-29775.herokuapp.com/doctor', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',
@@ -50,12 +50,12 @@ const AddDoctor = () => {
                         body: JSON.stringify(doctor)
                     })
                         .then(res => res.json())
-                        .then(inserted =>{
-                            if(inserted.insertedId){
+                        .then(inserted => {
+                            if (inserted.insertedId) {
                                 toast.success('Doctor added successfully')
                                 reset()
                             }
-                            else{
+                            else {
                                 toast.error('Faild to add the doctor')
                             }
                         })
