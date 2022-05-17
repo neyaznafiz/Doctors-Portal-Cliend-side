@@ -2,10 +2,11 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useQuery } from 'react-query';
 import Loading from '../Shared/Loading';
+import { toast } from 'react-toastify';
 
 const AddDoctor = () => {
 
-    const { register, formState: { errors }, handleSubmit } = useForm()
+    const { register, formState: { errors }, handleSubmit, reset } = useForm()
 
     const { data: services, isLoading } = useQuery('services', () => fetch('http://localhost:5000/service').then(res => res.json()))
 
@@ -31,7 +32,7 @@ const AddDoctor = () => {
         })
             .then(res => res.json())
             .then(result => {
-                if(result.success){
+                if (result.success) {
                     const img = result.data.url
                     const doctor = {
                         name: data.name,
@@ -40,7 +41,24 @@ const AddDoctor = () => {
                         img: img
                     }
                     // send to your database
-                    
+                    fetch('http://localhost:5000/doctor', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                        },
+                        body: JSON.stringify(doctor)
+                    })
+                        .then(res => res.json())
+                        .then(inserted =>{
+                            if(inserted.insertedId){
+                                toast.success('Doctor added successfully')
+                                reset()
+                            }
+                            else{
+                                toast.error('Faild to add the doctor')
+                            }
+                        })
                 }
             })
     }
@@ -102,7 +120,7 @@ const AddDoctor = () => {
                     <label className="label">
                         <span className="label-text">Speciality</span>
                     </label>
-                    <select {...register('speciality')} class="select w-full input-bordered max-w-xs">
+                    <select {...register('speciality')} className="select w-full input-bordered max-w-xs">
                         {
                             services.map(service => <option
                                 key={service._id}
