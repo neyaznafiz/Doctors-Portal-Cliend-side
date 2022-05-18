@@ -20,7 +20,8 @@ import AllUsers from './Pages/Dashboard/AllUsers';
 import RequireAdmin from './Pages/Login/RequireAdmin';
 import AddDoctor from './Pages/Dashboard/AddDoctor';
 import ManageDoctors from './Pages/Dashboard/ManageDoctors';
-import Payment from './Pages/Dashboard/Payment';
+import Payment from './Pages/Dashboard/Payment/Payment';
+
 
 function App() {
   return (
