@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import Loading from '../../Shared/Loading';
-import {loadStripe} from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
 
@@ -32,18 +32,20 @@ const Payment = () => {
             <div className="card w-50 max-w-md bg-base-100 shadow-xl my-12">
                 <div className="card-body">
                     <p className="text-success text-xl font-semibold">Hello, {appointment.patientName}</p>
-                    <h2  ame="card-title">Pay for {appointment.treatment}</h2>
+                    <h2 ame="card-title">Pay for {appointment.treatment}</h2>
                     <p> Your Appointment: <span className='font-semibold'>{appointment.date}</span> at <span className='font-semibold'>{appointment.slot}</span></p>
-                  <p>Please pay: ${appointment.price}</p>
+                    <p>Please pay: ${appointment.price}</p>
                 </div>
             </div>
 
             <div className="card flex-shrink-0 w-50 max-w-md shadow-2xl bg-base-100">
+
                 <div className="card-body">
-                <Elements stripe={stripePromise}>
-      <CheckoutForm />
-    </Elements>
+                    <Elements stripe={stripePromise}>
+                        <CheckoutForm />
+                    </Elements>
                 </div>
+                
             </div>
 
 
