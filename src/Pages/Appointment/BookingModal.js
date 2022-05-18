@@ -6,7 +6,7 @@ import auth from '../../FIrebase/firebase.init';
 
 const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
 
-    const { _id, name, slots } = treatment
+    const { _id, name, slots, price } = treatment
 
     const [user, loading] = useAuthState(auth)
 
@@ -21,6 +21,7 @@ const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
             treatment: name,
             date: formatedDate,
             slot,
+            price,
             patient: user.email,
             patientName: user.displayName,
             phone: event.target.phone.value
