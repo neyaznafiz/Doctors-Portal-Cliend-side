@@ -1,7 +1,3 @@
-# Live side Link 
+### Live Link : https://doctors-protal-n.web.app/
 
-## https://doctors-protal-n.web.app/
-
-# Server repo Link
-
-## https://github.com/neyaznafiz/Doctors-Portal-server-side
+### Server repo Link : https://github.com/neyaznafiz/Doctors-Portal-server-side
